@@ -1,0 +1,250 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+      "title": "Safle Relayer Service",
+      "description": "Safle Relayer service(Safle Backend)",
+      "version": "1.0.0"
+    },
+    "servers": [
+      {
+        "url": "https://dev-relayer.getsafle.com",
+        "description": "Dev server"
+      },
+      {
+        "url": "https://relayer.getsafle.com",
+        "description": "Beta Server"
+      }
+    ],
+    "paths": {
+      "/set-coin-address": {
+        "post": {
+          "description": "Users can set their coin address against their particular safleId.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userAddress": {
+                      "type": "string"
+                    },
+                    "address": {
+                      "type": "string"
+                    },
+                    "index": {
+                      "type": "string"
+                    },
+                    "signedData": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "blockhash is": {
+                        "type": "string"
+                      },
+                      "block number is": {
+                        "type": "string"
+                      },
+                      "transaction hash is": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/400"
+            }
+          }
+        }
+      },
+      "/set-safleid": {
+        "post": {
+          "description": "User can set a safleId against an address.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userAddress": {
+                      "type": "string"
+                    },
+                    "signedData": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "statusCode": {
+                        "type": "number",
+                        "example": 201
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "safleId registered successfully."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/400"
+            }
+          }
+        }
+      },
+      "/update-safleid": {
+        "post": {
+          "description": "User can update their old safleId for a new one.",
+          "requestBody": {
+            "required": true,
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "userAddress": {
+                      "type": "string"
+                    },
+                    "newsafleId": {
+                      "type": "string"
+                    },
+                    "HNContractAddress": {
+                      "type": "string"
+                    },
+                    "signedData": {
+                      "type": "object"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses": {
+            "201": {
+              "description": "Success Response",
+              "content": {
+                "application/json": {
+                  "schema": {
+                    "type": "object",
+                    "properties": {
+                      "statusCode": {
+                        "type": "number",
+                        "example": 201
+                      },
+                      "message": {
+                        "type": "string",
+                        "example": "safleId updated successfully."
+                      }
+                    }
+                  }
+                }
+              }
+            },
+            "400": {
+              "$ref": "#/components/responses/400"
+            }
+          }
+        }
+      }
+    },
+    "components": {
+      "responses": {
+        "201": {
+          "description": "Error Response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "number",
+                    "example": 201
+                  },
+                  "ResponseMetadata": {
+                    "type": "object",
+                    "properties": {
+                      "RequestId": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "MD5OfMessageBody": {
+                    "type": "string"
+                  },
+                  "MD5OfMessageAttributes": {
+                    "type": "string"
+                  },
+                  "MessageId": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "400": {
+          "description": "Error Response",
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "statusCode": {
+                    "type": "number",
+                    "example": 400
+                  },
+                  "type": {
+                    "type": "string",
+                    "example": "field-validation"
+                  },
+                  "details": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "name": {
+                          "type": "string",
+                          "example": "field validation error name"
+                        },
+                        "message": {
+                          "type": "string",
+                          "example": "field validation error message"
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
